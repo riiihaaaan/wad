@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="form-window">
+        <header class="window-header">
+            <div class="window-dots">
+                <span class="control-dot dot-red"></span>
+                <span class="control-dot dot-yellow"></span>
+                <span class="control-dot dot-green"></span>
+            </div>
+            <button type="button" class="icon-btn" aria-label="Toggle Fullscreen">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <polyline points="9 21 3 21 3 15"></polyline>
+                    <line x1="21" y1="3" x2="14" y2="10"></line>
+                    <line x1="3" y1="21" x2="10" y2="14"></line>
+                </svg>
+            </button>
+        </header>
+
+        <div class="divider"></div>
+
+        <form id="regForm" class="form-content">
+            <div class="field">
+                <label for="name">Full Name*</label>
+                <input type="text" id="name" required placeholder="Type your name">
+            </div>
+
+            <div class="field">
+                <label for="email">Email*</label>
+                <input type="email" id="email" required placeholder="Type your email address">
+            </div>
+
+            <div class="field">
+                <label for="password">Password*</label>
+                <input type="password" id="password" required placeholder="Type your password">
+            </div>
+
+            <button type="button" class="secondary-btn">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>Add another</span>
+            </button>
+
+            <div class="divider"></div>
+
+            <button type="submit" class="submit-btn">
+                <span>Submit</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+            </button>
+        </form>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>

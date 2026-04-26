@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BeatFlow - Music Playlist Creator built with jQuery Mobile for mobile-friendly playlist management and interactive list filtering.">
+    <title>BeatFlow | Music Playlist Creator</title>
+
+    <!-- jQuery Mobile CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom Styles (override jQuery Mobile theme) -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- jQuery + jQuery Mobile JS -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+    <!-- ==================== PAGE 1: HOME / SONG LIBRARY ==================== -->
+    <div data-role="page" id="homePage" data-theme="a">
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false">
+            <a href="#playlistsPage" data-icon="bars" data-iconpos="notext" class="ui-btn-left">Playlists</a>
+            <h1><i class="fas fa-headphones"></i> BeatFlow</h1>
+            <a href="#addSongPage" data-icon="plus" data-iconpos="notext" class="ui-btn-right">Add</a>
+        </div>
+
+        <div data-role="content" class="page-content">
+            <!-- Search / Filter -->
+            <form class="ui-filterable">
+                <input id="songSearchInput" data-type="search" placeholder="Search songs by title, artist, or genre..." class="search-input">
+            </form>
+
+            <!-- Genre Filter -->
+            <div class="genre-filter-bar">
+                <select id="genreFilterHome" data-native-menu="true" data-mini="true">
+                    <option value="all">All Genres</option>
+                    <option value="Pop">Pop</option>
+                    <option value="Rock">Rock</option>
+                    <option value="Hip-Hop">Hip-Hop</option>
+                    <option value="Electronic">Electronic</option>
+                    <option value="R&B">R&B</option>
+                    <option value="Jazz">Jazz</option>
+                    <option value="Classical">Classical</option>
+                    <option value="Indie">Indie</option>
+                </select>
+            </div>
+
+            <!-- Song Library List -->
+            <ul data-role="listview" data-inset="true" data-filter="true" data-input="#songSearchInput" id="songLibraryList" class="song-list">
+                <!-- Songs rendered dynamically -->
+            </ul>
+
+            <div id="emptyLibrary" class="empty-state" style="display:none;">
+                <i class="fas fa-music"></i>
+                <p>No songs found. Add some music!</p>
+            </div>
+        </div>
+
+        <!-- Bottom Nav -->
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#homePage" data-icon="home" class="ui-btn-active">Library</a></li>
+                    <li><a href="#playlistsPage" data-icon="bars">Playlists</a></li>
+                    <li><a href="#nowPlayingPage" data-icon="audio">Now Playing</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 2: PLAYLISTS ==================== -->
+    <div data-role="page" id="playlistsPage" data-theme="a">
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false">
+            <a href="#homePage" data-icon="home" data-iconpos="notext" class="ui-btn-left">Home</a>
+            <h1><i class="fas fa-list-music"></i> My Playlists</h1>
+            <a href="#createPlaylistPage" data-icon="plus" data-iconpos="notext" class="ui-btn-right">New</a>
+        </div>
+
+        <div data-role="content" class="page-content">
+            <ul data-role="listview" data-inset="true" id="playlistList" class="playlist-list">
+                <!-- Playlists rendered dynamically -->
+            </ul>
+
+            <div id="emptyPlaylists" class="empty-state" style="display:none;">
+                <i class="fas fa-compact-disc"></i>
+                <p>No playlists yet. Create your first one!</p>
+            </div>
+
+            <a href="#createPlaylistPage" class="ui-btn ui-corner-all ui-shadow create-playlist-btn">
+                <i class="fas fa-plus"></i> Create New Playlist
+            </a>
+        </div>
+
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#homePage" data-icon="home">Library</a></li>
+                    <li><a href="#playlistsPage" data-icon="bars" class="ui-btn-active">Playlists</a></li>
+                    <li><a href="#nowPlayingPage" data-icon="audio">Now Playing</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 3: CREATE PLAYLIST ==================== -->
+    <div data-role="page" id="createPlaylistPage" data-theme="a">
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false">
+            <a href="#playlistsPage" data-icon="arrow-l" data-iconpos="notext" class="ui-btn-left">Back</a>
+            <h1>Create Playlist</h1>
+        </div>
+
+        <div data-role="content" class="page-content">
+            <form id="createPlaylistForm">
+                <div data-role="fieldcontain">
+                    <label for="playlistName">Playlist Name *</label>
+                    <input type="text" id="playlistName" placeholder="e.g. Workout Mix" required>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="playlistDesc">Description</label>
+                    <textarea id="playlistDesc" placeholder="What's this playlist for?" rows="3"></textarea>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="playlistMood">Mood / Vibe</label>
+                    <select id="playlistMood" data-native-menu="true">
+                        <option value="Energetic">🔥 Energetic</option>
+                        <option value="Chill">🌊 Chill</option>
+                        <option value="Romantic">💕 Romantic</option>
+                        <option value="Focus">🎯 Focus</option>
+                        <option value="Party">🎉 Party</option>
+                        <option value="Sad">🌧️ Sad</option>
+                        <option value="Motivational">💪 Motivational</option>
+                    </select>
+                </div>
+
+                <h3 class="section-title">Select Songs</h3>
+                <form class="ui-filterable">
+                    <input id="playlistSongSearch" data-type="search" placeholder="Filter songs...">
+                </form>
+
+                <fieldset data-role="controlgroup" id="songCheckboxGroup">
+                    <!-- Song checkboxes rendered dynamically -->
+                </fieldset>
+
+                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b save-btn">
+                    <i class="fas fa-save"></i> Save Playlist
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 4: PLAYLIST DETAIL ==================== -->
+    <div data-role="page" id="playlistDetailPage" data-theme="a">
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false">
+            <a href="#playlistsPage" data-icon="arrow-l" data-iconpos="notext" class="ui-btn-left">Back</a>
+            <h1 id="playlistDetailTitle">Playlist</h1>
+            <a href="#" id="deletePlaylistBtn" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Delete</a>
+        </div>
+
+        <div data-role="content" class="page-content">
+            <div id="playlistDetailInfo" class="playlist-detail-header"></div>
+
+            <form class="ui-filterable">
+                <input id="playlistDetailSearch" data-type="search" placeholder="Filter songs in playlist...">
+            </form>
+
+            <ul data-role="listview" data-inset="true" data-filter="true" data-input="#playlistDetailSearch" id="playlistDetailList" class="song-list">
+                <!-- Songs rendered dynamically -->
+            </ul>
+
+            <div id="emptyPlaylistDetail" class="empty-state" style="display:none;">
+                <i class="fas fa-music"></i>
+                <p>This playlist is empty</p>
+            </div>
+        </div>
+
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#homePage" data-icon="home">Library</a></li>
+                    <li><a href="#playlistsPage" data-icon="bars" class="ui-btn-active">Playlists</a></li>
+                    <li><a href="#nowPlayingPage" data-icon="audio">Now Playing</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 5: ADD SONG ==================== -->
+    <div data-role="page" id="addSongPage" data-theme="a">
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false">
+            <a href="#homePage" data-icon="arrow-l" data-iconpos="notext" class="ui-btn-left">Back</a>
+            <h1>Add Song</h1>
+        </div>
+
+        <div data-role="content" class="page-content">
+            <form id="addSongForm">
+                <div data-role="fieldcontain">
+                    <label for="songTitle">Song Title *</label>
+                    <input type="text" id="songTitle" placeholder="e.g. Bohemian Rhapsody" required>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="songArtist">Artist *</label>
+                    <input type="text" id="songArtist" placeholder="e.g. Queen" required>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="songAlbum">Album</label>
+                    <input type="text" id="songAlbum" placeholder="e.g. A Night at the Opera">
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="songGenre">Genre *</label>
+                    <select id="songGenre" data-native-menu="true" required>
+                        <option value="Pop">Pop</option>
+                        <option value="Rock">Rock</option>
+                        <option value="Hip-Hop">Hip-Hop</option>
+                        <option value="Electronic">Electronic</option>
+                        <option value="R&B">R&B</option>
+                        <option value="Jazz">Jazz</option>
+                        <option value="Classical">Classical</option>
+                        <option value="Indie">Indie</option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="songDuration">Duration (seconds) *</label>
+                    <input type="number" id="songDuration" placeholder="e.g. 230" min="1" required>
+                </div>
+
+                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b save-btn">
+                    <i class="fas fa-plus-circle"></i> Add to Library
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 6: NOW PLAYING ==================== -->
+    <div data-role="page" id="nowPlayingPage" data-theme="a">
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false">
+            <a href="#homePage" data-icon="arrow-l" data-iconpos="notext" class="ui-btn-left">Back</a>
+            <h1>Now Playing</h1>
+        </div>
+
+        <div data-role="content" class="page-content now-playing-content">
+            <div id="nowPlayingWidget" class="now-playing-widget">
+                <div class="np-album-art" id="npAlbumArt">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h2 id="npTitle" class="np-title">No Song Selected</h2>
+                <p id="npArtist" class="np-artist">Select a song to play</p>
+                <p id="npAlbum" class="np-album"></p>
+
+                <div class="np-progress">
+                    <div class="np-progress-bar">
+                        <div class="np-progress-fill" id="npProgressFill"></div>
+                    </div>
+                    <div class="np-time">
+                        <span id="npCurrentTime">0:00</span>
+                        <span id="npTotalTime">0:00</span>
+                    </div>
+                </div>
+
+                <div class="np-controls">
+                    <button class="np-btn" id="npPrev"><i class="fas fa-backward-step"></i></button>
+                    <button class="np-btn np-play-btn" id="npPlayPause"><i class="fas fa-play"></i></button>
+                    <button class="np-btn" id="npNext"><i class="fas fa-forward-step"></i></button>
+                </div>
+
+                <div class="np-extra-controls">
+                    <button class="np-small-btn" id="npShuffle"><i class="fas fa-shuffle"></i></button>
+                    <button class="np-small-btn" id="npRepeat"><i class="fas fa-repeat"></i></button>
+                    <button class="np-small-btn" id="npFavorite"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#homePage" data-icon="home">Library</a></li>
+                    <li><a href="#playlistsPage" data-icon="bars">Playlists</a></li>
+                    <li><a href="#nowPlayingPage" data-icon="audio" class="ui-btn-active">Now Playing</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

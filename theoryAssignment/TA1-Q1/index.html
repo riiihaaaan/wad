@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning Course Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header section containing the course title and navigation -->
+    <header>
+        <h1>Web Basics Bootcamp</h1>
+        <p>Learn HTML, CSS, and JavaScript step by step.</p>
+
+        <!-- Semantic navigation bar with module links -->
+        <nav aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#modules">Modules</a></li>
+                <li><a href="#videos">Videos</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#feedback">Feedback</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main page content -->
+    <main>
+        <!-- Section 1: Course overview and module list -->
+        <section id="home" class="card">
+            <h2>Course Overview</h2>
+            <article>
+                <h3>What You Will Learn</h3>
+                <p>
+                    This beginner course helps you build strong web development fundamentals.
+                    You will practice structure, styling, and basic interactivity.
+                </p>
+                <ul>
+                    <li>Write semantic HTML pages</li>
+                    <li>Style pages with CSS and Flexbox</li>
+                    <li>Create simple dynamic behavior using JavaScript</li>
+                </ul>
+            </article>
+        </section>
+
+        <!-- Section 2: Modules in ordered list format -->
+        <section id="modules" class="card">
+            <h2>Course Modules</h2>
+            <article>
+                <h3>Learning Path</h3>
+                <ol>
+                    <li>Introduction to HTML</li>
+                    <li>CSS Layout and Styling</li>
+                    <li>Responsive Web Design Basics</li>
+                    <li>JavaScript Fundamentals</li>
+                </ol>
+            </article>
+        </section>
+
+        <!-- Section 3: Embedded video lesson -->
+        <section id="videos" class="card">
+            <h2>Featured Video Lesson</h2>
+            <article>
+                <h3>HTML Crash Course</h3>
+                <div class="video-wrapper">
+                    <iframe
+                        src="https://www.youtube.com/embed/qz0aGYrrlhU"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </article>
+        </section>
+
+        <!-- Section 4: Downloadable resource links -->
+        <section id="resources" class="card">
+            <h2>Downloadable Resources</h2>
+            <article>
+                <h3>Study Material</h3>
+                <ul>
+                    <li><a href="#">HTML Quick Guide (PDF)</a></li>
+                    <li><a href="#">CSS Practice Notes</a></li>
+                    <li><a href="#">JavaScript Basics Worksheet</a></li>
+                </ul>
+            </article>
+        </section>
+
+        <!-- Section 5: Basic feedback form (no JavaScript) -->
+        <section id="feedback" class="card">
+            <h2>Course Feedback</h2>
+            <form action="#" method="post">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" placeholder="Share your feedback..." required></textarea>
+
+                <button type="submit">Submit Feedback</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer information -->
+    <footer>
+        <p>&copy; 2026 Web Basics Bootcamp. All rights reserved.</p>
+    </footer>
+</body>
+</html>

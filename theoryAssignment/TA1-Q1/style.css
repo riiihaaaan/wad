@@ -1,0 +1,150 @@
+/* Basic reset for consistent spacing across browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Page-level styling for readable typography and soft background */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f7fb;
+    color: #1f2937;
+}
+
+/* Header styling to create clear visual separation */
+header {
+    background-color: #1d4ed8;
+    color: #ffffff;
+    padding: 1.5rem 1rem;
+    text-align: center;
+}
+
+header p {
+    margin-top: 0.4rem;
+}
+
+/* Flexbox navbar for horizontal links on wider screens */
+nav {
+    margin-top: 1rem;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.nav-list a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.nav-list a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Main content container */
+main {
+    max-width: 900px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+}
+
+/* Card style used by each section to keep layout clean */
+.card {
+    background-color: #ffffff;
+    padding: 1.2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.2rem;
+}
+
+h2 {
+    margin-bottom: 0.8rem;
+    color: #1e3a8a;
+}
+
+h3 {
+    margin-bottom: 0.6rem;
+}
+
+ul,
+ol {
+    margin-left: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+/* Responsive YouTube embed container */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 0.8rem;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Basic form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+input,
+textarea {
+    padding: 0.6rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+button {
+    width: fit-content;
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1e40af;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #111827;
+    color: #ffffff;
+    margin-top: 1rem;
+}
+
+/* On small screens, stack nav links vertically for readability */
+@media (max-width: 600px) {
+    .nav-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+}

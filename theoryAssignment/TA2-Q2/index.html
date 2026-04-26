@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CineVault - NoSQL-Based Movie Database with search analysis and filtering capabilities, powered by MongoDB.">
+    <title>CineVault | Movie Database</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-film"></i>
+            <span>CineVault</span>
+        </div>
+        <div class="nav-stats">
+            <span class="stat-pill" id="totalMovies"><i class="fas fa-video"></i> <b>0</b> Movies</span>
+            <span class="stat-pill" id="avgRating"><i class="fas fa-star"></i> <b>0</b> Avg Rating</span>
+        </div>
+    </nav>
+
+    <!-- Hero / Search Section -->
+    <header class="hero-section">
+        <h1>Explore the <span class="gradient-text">Movie Universe</span></h1>
+        <p>Search, filter, and review thousands of movies in our NoSQL-powered catalog</p>
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search movies by title, genre, or director..." autocomplete="off">
+                <button class="search-clear" id="searchClear" style="display:none;"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filters Bar -->
+    <section class="filters-bar">
+        <div class="filter-group">
+            <label>Genre</label>
+            <select id="genreFilter">
+                <option value="all">All Genres</option>
+                <option value="Action">Action</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Drama">Drama</option>
+                <option value="Sci-Fi">Sci-Fi</option>
+                <option value="Horror">Horror</option>
+                <option value="Romance">Romance</option>
+                <option value="Thriller">Thriller</option>
+                <option value="Animation">Animation</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Year</label>
+            <select id="yearFilter">
+                <option value="all">All Years</option>
+                <option value="2020s">2020s</option>
+                <option value="2010s">2010s</option>
+                <option value="2000s">2000s</option>
+                <option value="1990s">1990s</option>
+                <option value="classic">Before 1990</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Rating</label>
+            <select id="ratingFilter">
+                <option value="all">All Ratings</option>
+                <option value="9">9+ ★</option>
+                <option value="8">8+ ★</option>
+                <option value="7">7+ ★</option>
+                <option value="6">6+ ★</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Sort By</label>
+            <select id="sortFilter">
+                <option value="rating_desc">Highest Rated</option>
+                <option value="rating_asc">Lowest Rated</option>
+                <option value="year_desc">Newest</option>
+                <option value="year_asc">Oldest</option>
+                <option value="title_asc">A-Z</option>
+                <option value="title_desc">Z-A</option>
+            </select>
+        </div>
+        <button class="btn-reset" id="resetFilters"><i class="fas fa-redo"></i> Reset</button>
+    </section>
+
+    <!-- Results Info -->
+    <div class="results-info" id="resultsInfo">
+        <span id="resultCount">Loading...</span>
+        <div class="view-toggle">
+            <button class="view-btn active" data-view="grid" id="gridViewBtn"><i class="fas fa-th"></i></button>
+            <button class="view-btn" data-view="list" id="listViewBtn"><i class="fas fa-list"></i></button>
+        </div>
+    </div>
+
+    <!-- Movie Grid -->
+    <section class="movies-container" id="moviesContainer">
+        <div class="movies-grid" id="moviesGrid">
+            <!-- Movies rendered dynamically -->
+        </div>
+    </section>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState" style="display:none;">
+        <i class="fas fa-film"></i>
+        <h3>No movies found</h3>
+        <p>Try adjusting your search or filters</p>
+    </div>
+
+    <!-- Movie Detail Modal -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-card">
+            <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            <div id="detailContent"></div>
+        </div>
+    </div>
+
+    <!-- MongoDB Info Panel (Toggle) -->
+    <button class="mongo-toggle" id="mongoToggle"><i class="fas fa-database"></i></button>
+    <div class="mongo-panel" id="mongoPanel">
+        <div class="mongo-panel-header">
+            <h3><i class="fas fa-database"></i> MongoDB Schema & Queries</h3>
+            <button class="mongo-panel-close" id="mongoPanelClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="mongo-panel-content">
+            <div class="mongo-section">
+                <h4>📦 Collection: movies</h4>
+                <pre><code>{
+  "_id": ObjectId("..."),
+  "title": "The Dark Knight",
+  "year": 2008,
+  "genre": ["Action", "Drama", "Thriller"],
+  "director": "Christopher Nolan",
+  "cast": ["Christian Bale", "Heath Ledger"],
+  "plot": "When the menace known as...",
+  "rating": 9.0,
+  "poster": "https://...",
+  "runtime": 152,
+  "reviews": [
+    {
+      "userId": ObjectId("..."),
+      "username": "moviefan42",
+      "rating": 9.5,
+      "comment": "A masterpiece!",
+      "createdAt": ISODate("2024-01-15")
+    }
+  ],
+  "createdAt": ISODate("2024-01-01"),
+  "updatedAt": ISODate("2024-01-15")
+}</code></pre>
+            </div>
+
+            <div class="mongo-section">
+                <h4>🔍 Search by Title (Text Index)</h4>
+                <pre><code>// Create text index
+db.movies.createIndex({ title: "text", plot: "text" })
+
+// Full-text search
+db.movies.find({ $text: { $search: "dark knight" } })</code></pre>
+            </div>
+
+            <div class="mongo-section">
+                <h4>🎭 Filter by Genre</h4>
+                <pre><code>db.movies.find({ genre: "Action" })
+
+// Multiple genres (OR)
+db.movies.find({ genre: { $in: ["Action", "Sci-Fi"] } })</code></pre>
+            </div>
+
+            <div class="mongo-section">
+                <h4>⭐ Filter by Rating</h4>
+                <pre><code>db.movies.find({ rating: { $gte: 8.0 } })
+    .sort({ rating: -1 })
+    .limit(20)</code></pre>
+            </div>
+
+            <div class="mongo-section">
+                <h4>📅 Filter by Year Range</h4>
+                <pre><code>db.movies.find({
+  year: { $gte: 2010, $lte: 2019 }
+}).sort({ year: -1 })</code></pre>
+            </div>
+
+            <div class="mongo-section">
+                <h4>📝 Add a Review (Update)</h4>
+                <pre><code>db.movies.updateOne(
+  { _id: ObjectId("...") },
+  {
+    $push: {
+      reviews: {
+        userId: ObjectId("..."),
+        username: "user123",
+        rating: 8.5,
+        comment: "Great movie!",
+        createdAt: new Date()
+      }
+    },
+    $set: { updatedAt: new Date() }
+  }
+)</code></pre>
+            </div>
+
+            <div class="mongo-section">
+                <h4>📊 Aggregation: Avg Rating by Genre</h4>
+                <pre><code>db.movies.aggregate([
+  { $unwind: "$genre" },
+  { $group: {
+      _id: "$genre",
+      avgRating: { $avg: "$rating" },
+      count: { $sum: 1 }
+    }
+  },
+  { $sort: { avgRating: -1 } }
+])</code></pre>
+            </div>
+
+            <div class="mongo-section">
+                <h4>🔗 Indexes for Performance</h4>
+                <pre><code>db.movies.createIndex({ genre: 1 })
+db.movies.createIndex({ year: -1 })
+db.movies.createIndex({ rating: -1 })
+db.movies.createIndex({ "reviews.userId": 1 })</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
