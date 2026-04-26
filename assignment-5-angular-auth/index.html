@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Auth App</title>
+    <!-- AngularJS CDN for minimal lab exam implementation without npm setup -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .box { border: 1px solid #ccc; padding: 20px; margin-bottom: 20px; width: 300px;}
+        input { display: block; margin: 10px 0; padding: 5px; width: 90%; }
+        button { padding: 5px 10px; }
+    </style>
+</head>
+<body ng-controller="AuthController">
+
+    <!-- Register Component -->
+    <div class="box" ng-show="!isLoggedIn && currentView === 'register'">
+        <h3>Register User</h3>
+        <input type="text" ng-model="regUser.name" placeholder="Name">
+        <input type="email" ng-model="regUser.email" placeholder="Email">
+        <input type="password" ng-model="regUser.password" placeholder="Password">
+        <button ng-click="register()">Register</button>
+        <p><a href="#" ng-click="currentView='login'">Already have an account? Login</a></p>
+    </div>
+
+    <!-- Login Component -->
+    <div class="box" ng-show="!isLoggedIn && currentView === 'login'">
+        <h3>Login User</h3>
+        <input type="email" ng-model="loginUser.email" placeholder="Email">
+        <input type="password" ng-model="loginUser.password" placeholder="Password">
+        <button ng-click="login()">Login</button>
+        <p><a href="#" ng-click="currentView='register'">New user? Register</a></p>
+    </div>
+
+    <!-- Profile Component -->
+    <div class="box" ng-show="isLoggedIn">
+        <h3>User Profile</h3>
+        <p><strong>Name:</strong> {{ loggedInUserData.name }}</p>
+        <p><strong>Email:</strong> {{ loggedInUserData.email }}</p>
+        <button ng-click="logout()">Logout</button>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+
+        app.controller('AuthController', function($scope) {
+            $scope.currentView = 'register';
+            $scope.isLoggedIn = false;
+            $scope.users = []; // mock database
+            
+            $scope.regUser = {};
+            $scope.loginUser = {};
+            $scope.loggedInUserData = null;
+
+            $scope.register = function() {
+                $scope.users.push(angular.copy($scope.regUser));
+                alert('Registration successful! Please login.');
+                $scope.regUser = {};
+                $scope.currentView = 'login';
+            };
+
+            $scope.login = function() {
+                var foundUser = $scope.users.find(u => u.email === $scope.loginUser.email && u.password === $scope.loginUser.password);
+                if (foundUser) {
+                    $scope.isLoggedIn = true;
+                    $scope.loggedInUserData = foundUser;
+                    $scope.loginUser = {};
+                } else {
+                    alert('Invalid credentials!');
+                }
+            };
+
+            $scope.logout = function() {
+                $scope.isLoggedIn = false;
+                $scope.loggedInUserData = null;
+                $scope.currentView = 'login';
+            };
+        });
+    </script>
+</body>
+</html>

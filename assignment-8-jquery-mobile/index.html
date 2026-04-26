@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery Mobile Site</title>
+    <!-- jQuery Mobile CSS & JS via CDN -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+    <!-- Home Page -->
+    <div data-role="page" id="home">
+        <div data-role="header">
+            <h1>Mobile Site</h1>
+        </div>
+        <div data-role="main" class="ui-content">
+            <h2>Welcome</h2>
+            <p>This is a simple mobile website built with jQuery Mobile.</p>
+            <a href="#about" class="ui-btn ui-corner-all ui-btn-b">Go to About Page</a>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h1>&copy; 2026 Student</h1>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div data-role="page" id="about">
+        <div data-role="header">
+            <a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+            <h1>About Us</h1>
+        </div>
+        <div data-role="main" class="ui-content">
+            <h2>About</h2>
+            <p>This application demonstrates navigation in jQuery mobile.</p>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h1>&copy; 2026 Student</h1>
+        </div>
+    </div>
+
+</body>
+</html>
