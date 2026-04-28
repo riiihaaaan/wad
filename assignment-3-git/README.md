@@ -44,3 +44,5 @@
 * **The `.gitignore` Essential:** Before you push, create a file named `.gitignore` and add `node_modules/` or `.env` to it. Nobody wants to download 400MB of your dependencies or your private API keys.
 * **The "Oops" Command:** If you linked the wrong URL, fix it with:
     `git remote set-url origin <NEW_URL>`
+
+    `git add .; git commit -m "message here"; git push`
